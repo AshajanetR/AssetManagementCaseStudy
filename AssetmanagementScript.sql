@@ -24,7 +24,7 @@ CREATE TABLE assets (
     location VARCHAR(100),
     status ENUM('INUSE', 'DECOMISSIONED', 'UNDERMAINTAINENCE','AVAILABLE') NOT NULL,
     owner_id INT,
-    FOREIGN KEY (owner_id) REFERENCES employees(employee_id) ON DELETE SET NULL  -- If employee is deleted, owner_id becomes NULL
+    FOREIGN KEY (owner_id) REFERENCES employees(employee_id) ON DELETE SET NULL  
 );
 desc assets;
 
@@ -34,7 +34,7 @@ CREATE TABLE maintenance_records (
     maintenance_date DATE NOT NULL,
     description TEXT NOT NULL,
     cost DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (asset_id) REFERENCES assets(asset_id) ON DELETE CASCADE  -- If asset is deleted, delete maintenance records
+    FOREIGN KEY (asset_id) REFERENCES assets(asset_id) ON DELETE CASCADE  
 );
 
 CREATE TABLE asset_allocations (
@@ -43,8 +43,8 @@ CREATE TABLE asset_allocations (
     employee_id INT NOT NULL,
     allocation_date DATE NOT NULL,
     return_date DATE NULL,
-    FOREIGN KEY (asset_id) REFERENCES assets(asset_id) ON DELETE CASCADE,  -- Delete allocations when asset is deleted
-    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE  -- Delete allocations when employee is deleted
+    FOREIGN KEY (asset_id) REFERENCES assets(asset_id) ON DELETE CASCADE,  
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE  
 );
 
 CREATE TABLE reservations (
@@ -55,8 +55,8 @@ CREATE TABLE reservations (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     status ENUM('PENDING', 'APPROVED', 'CANCELED') NOT NULL,
-    FOREIGN KEY (asset_id) REFERENCES assets(asset_id) ON DELETE CASCADE,  -- Delete reservation when asset is deleted
-    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE  -- Delete reservation when employee is deleted
+    FOREIGN KEY (asset_id) REFERENCES assets(asset_id) ON DELETE CASCADE,  
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE  
 );
 
 INSERT INTO employees (name, department, email, password) VALUES 
